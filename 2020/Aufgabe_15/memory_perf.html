@@ -1,0 +1,27 @@
+<script>
+    const starting_numbers = [14,1,17,0,3,20];
+    var numbers_spoken = {};
+    var max_turns = 30000000;
+    var last_spoken = starting_numbers[0];
+    var start_time = Date.now();
+    
+    for(var turn = 0; turn < max_turns; turn++){
+        if(turn < starting_numbers.length){
+            numbers_spoken[last_spoken] = turn;
+            last_spoken = starting_numbers[turn];
+        }
+        else if (!(last_spoken in numbers_spoken)){
+            numbers_spoken[last_spoken] = turn;
+            last_spoken = 0;
+        }
+        else{
+            before_turn = numbers_spoken[last_spoken];
+            numbers_spoken[last_spoken] = turn;
+            last_spoken = turn - before_turn;
+        }
+    }
+    
+    numbers_spoken[last_spoken] = turn;
+    console.log("Result: " + last_spoken + " after " + (Date.now() - start_time) + "s");
+    console.log(turn)
+</script>
